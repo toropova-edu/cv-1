@@ -6,9 +6,9 @@
 <title>Savely Byzov — Linguist // EFL Teacher // Researcher</title>
 <meta name="description" content="Savely Byzov — university lecturer and researcher in English language teaching, sociolinguistics, and the history of English. Belgrade, Serbia.">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#11202B">
+<meta name="theme-color" content="#6B2230">
 <link rel="canonical" href="https://saveliybyzov.github.io/cv/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2311202B'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='28' fill='%23F2A93C' text-anchor='middle'%3ESB%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%236B2230'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='28' fill='%23AD8A47' text-anchor='middle'%3ESB%3C/text%3E%3C/svg%3E">
 
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="profile">
@@ -43,31 +43,35 @@
     "@type": "CollegeOrUniversity",
     "name": "Northern Arctic Federal University"
   },
-  "knowsLanguage": ["en", "ru", "no"],
+  "knowsLanguage": ["en", "ru", "sr", "no"],
   "sameAs": ["https://t.me/savageavery"]
 }
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,500;1,600&family=PT+Sans:wght@400;700&family=PT+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
+  /*
+    Visual direction: a scholarly critical edition — the apparatus he
+    builds around Old English poems (rubricated initials, marginal
+    dates, a bibliographic register) — rather than another editorial-
+    portfolio template. One family (EB Garamond) carries display, body,
+    italic and small-caps; no second face, no mono. One saturated
+    "buckram cloth" oxblood is the Committed accent — it IS the header's
+    cover colour and the one rubrication mark used throughout — against
+    a cool bone page, not warm parchment.
+  */
   :root{
-    --band:#11202B;
-    --band-ink:#EFEEE5;
-    --band-muted:#93A6A2;
-    --beam:#F5A833;
-    --paper:#EEF0EA;
-    --paper-deep:#E2E6DA;
-    --ink:#141F2A;
-    --ink-soft:#4B5C67;
-    --line:#C7CFC2;
-    --accent:#BD6D0A;
-    --accent2:#5B3E8C;
-    --card:#FBFAF5;
-    --serif:"Playfair Display", Georgia, serif;
-    --sans:"PT Sans", system-ui, -apple-system, sans-serif;
-    --mono:"PT Mono", "SFMono-Regular", Menlo, monospace;
+    --cloth:#6B2230;      /* cloth-cover oxblood: header, rubrication, links, active state */
+    --cloth-deep:#4E1A22; /* darker cloth, for rules/shadows against the cover */
+    --gilt:#AD8A47;       /* muted brass, used once: the stamped title on the cover */
+    --page:#F1EFE8;       /* bone page — the reading surface, deliberately not cream/parchment */
+    --page-deep:#E7E3D6;  /* deeper page tint: recessed tab fill, photo mat */
+    --ink:#1B1613;        /* near-black warm ink */
+    --ink-soft:#5C5348;   /* muted ink for secondary text */
+    --rule:#D6D0C1;       /* hairline rule colour */
+    --serif:"EB Garamond","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
   }
 
   *{box-sizing:border-box;}
@@ -81,19 +85,19 @@
 
   body{
     margin:0;
-    background:var(--paper);
+    background:var(--page);
     color:var(--ink);
-    font-family:var(--sans);
+    font-family:var(--serif);
     font-size:1rem;
-    line-height:1.6;
+    line-height:1.65;
     -webkit-font-smoothing:antialiased;
   }
 
-  ::selection{background:#D8C7A0;}
+  ::selection{background:#D9BFB0;}
 
-  a{color:var(--accent);text-decoration:none;}
+  a{color:var(--cloth);text-decoration:none;}
   a:hover{text-decoration:underline;text-underline-offset:3px;}
-  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+  a:focus-visible{outline:2px solid var(--cloth);outline-offset:3px;border-radius:2px;}
 
   .wrap{
     max-width:820px;
@@ -101,7 +105,7 @@
     padding:0 32px 120px;
   }
 
-  /* ---- Language switcher ---- */
+  /* ---- Language switcher (unchanged behaviour, re-inked) ---- */
   .langbar{
     position:fixed;
     top:20px;
@@ -110,62 +114,48 @@
     display:flex;
     align-items:center;
     gap:2px;
-    background:rgba(17,32,43,.82);
+    background:rgba(27,22,19,.88);
     backdrop-filter:blur(6px);
-    border-radius:3px;
+    border-radius:2px;
     padding:5px 6px;
-    font-family:var(--mono);
+    font-family:var(--serif);
   }
   .lang-group,.size-group{display:flex;align-items:center;gap:2px;}
-  .langbar-divider{width:1px;height:14px;background:rgba(255,255,255,.18);margin:0 5px;flex-shrink:0;}
+  .langbar-divider{width:1px;height:14px;background:rgba(241,239,232,.2);margin:0 5px;flex-shrink:0;}
   .langbar button{
     appearance:none;
     border:none;
     background:transparent;
     font-family:inherit;
-    font-size:.72rem;
-    font-weight:400;
-    letter-spacing:.06em;
-    color:var(--band-muted);
+    font-size:.78rem;
+    font-weight:500;
+    letter-spacing:.03em;
+    color:rgba(241,239,232,.62);
     padding:5px 8px;
     cursor:pointer;
     position:relative;
   }
-  .langbar button:hover{color:var(--band-ink);}
-  .langbar button.active{color:var(--beam);}
+  .langbar button:hover{color:var(--page);}
+  .langbar button.active{color:var(--gilt);}
   .langbar button.active::after{
     content:"";
-    position:absolute;left:8px;right:8px;bottom:0;height:1px;background:var(--beam);
+    position:absolute;left:8px;right:8px;bottom:0;height:1px;background:var(--gilt);
   }
   .size-btn{padding:5px 6px !important;line-height:1;}
-  .size-group .size-btn:nth-child(1){font-size:.62rem;}
-  .size-group .size-btn:nth-child(2){font-size:.78rem;}
-  .size-group .size-btn:nth-child(3){font-size:.96rem;}
+  .size-group .size-btn:nth-child(1){font-size:.66rem;}
+  .size-group .size-btn:nth-child(2){font-size:.8rem;}
+  .size-group .size-btn:nth-child(3){font-size:.98rem;}
   @media (max-width:600px){
     .langbar{top:12px;right:12px;}
     .langbar-divider{margin:0 3px;}
   }
 
-  /* ---- Header band ---- */
+  /* ---- Header: a cloth book-cover, not a lit sky ---- */
   .band{
     position:relative;
-    overflow:hidden;
-    background-color:var(--band);
-    background-image:
-      radial-gradient(ellipse 140% 100% at var(--beamx, -30%) -10%, rgba(242,169,60,.24), transparent 55%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.055' stroke-width='1'%3E%3Cpath d='M-20 30 Q35 0 90 30 T200 30'/%3E%3Cpath d='M-20 84 Q35 54 90 84 T200 84'/%3E%3Cpath d='M-20 138 Q35 108 90 138 T200 138'/%3E%3Cpath d='M-20 192 Q35 162 90 192 T200 192'/%3E%3C/g%3E%3C/svg%3E");
-    background-repeat:no-repeat, repeat;
-    background-size:auto, 220px 220px;
-    color:var(--band-ink);
-    padding:96px 32px 40px;
-    animation:sweep 3.4s ease-out .2s 1 both;
-  }
-  @keyframes sweep{
-    from{ --beamx:-30%; }
-    to{ --beamx:118%; }
-  }
-  @media (prefers-reduced-motion:reduce){
-    .band{animation:none;--beamx:10%;}
+    background:var(--cloth);
+    color:var(--page);
+    padding:96px 32px 44px;
   }
 
   .band-inner{max-width:756px;margin:0 auto;}
@@ -176,6 +166,7 @@
     gap:32px;
   }
 
+  /* The portrait as a frontispiece plate facing the title, not a hero shot */
   .plate{margin:0;flex-shrink:0;text-align:center;}
   .plate img{
     width:150px;
@@ -183,49 +174,58 @@
     object-fit:cover;
     object-position:center 22%;
     display:block;
-    border:3px solid #E8E4D8;
+    border:1px solid rgba(241,239,232,.5);
+    filter:sepia(.1) saturate(1.08) contrast(1.05) brightness(.99);
   }
   .plate figcaption{
-    font-family:var(--mono);
-    font-size:.6rem;
-    letter-spacing:.05em;
-    text-transform:uppercase;
-    color:var(--band-muted);
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:.72rem;
+    letter-spacing:.01em;
+    color:rgba(241,239,232,.62);
     margin-top:9px;
   }
 
   .band-text{min-width:0;padding-bottom:2px;}
 
+  /* Coordinates read as a marginal gloss, not a mono data readout */
   .topline{
-    font-family:var(--mono);
-    font-size:.7rem;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--band-muted);
-    margin:0 0 16px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:.85rem;
+    letter-spacing:.01em;
+    color:rgba(241,239,232,.68);
+    margin:0 0 14px;
   }
 
+  /* The name is stamped gilt lettering on cloth; its first letter is the
+     page's one recurring rubrication mark, echoed at every section head
+     below via ::first-letter — no illustration needed, no JS required. */
   .name{
     font-family:var(--serif);
-    font-weight:700;
-    font-size:clamp(2.6rem, 7vw, 4.3rem);
-    line-height:1.05;
-    letter-spacing:-.01em;
+    font-weight:600;
+    font-size:clamp(2.3rem, 6vw, 3.6rem);
+    line-height:1.08;
     margin:0;
-    color:var(--band-ink);
+    color:var(--gilt);
+    text-shadow:0 1px 0 rgba(0,0,0,.32), 0 -1px 0 rgba(255,255,255,.07);
     text-wrap:balance;
+  }
+  .name::first-letter{
+    font-size:1.3em;
+    font-weight:700;
   }
 
   .role{
     font-family:var(--serif);
     font-style:italic;
     font-weight:500;
-    font-size:clamp(1.1rem, 3.3vw, 1.4rem);
-    color:var(--beam);
+    font-size:clamp(1.05rem, 3vw, 1.3rem);
+    color:var(--page);
     margin:12px 0 0;
   }
 
-  /* ---- Lede (contacts + intro, on paper) ---- */
+  /* ---- Lede (contacts + intro, on the page) ---- */
   .lede{padding:32px 0 0;}
 
   .contacts{
@@ -233,84 +233,87 @@
     flex-wrap:wrap;
     gap:10px 24px;
     margin:0;
-    font-size:.92rem;
+    font-size:.94rem;
   }
   .contacts span{color:var(--ink-soft);}
 
   .print-btn{
     appearance:none;
-    border:1px solid var(--line);
+    border:1px solid var(--rule);
     background:none;
     display:inline-flex;
     align-items:center;
     gap:7px;
     padding:6px 13px;
-    font-family:var(--mono);
-    font-size:.72rem;
-    letter-spacing:.04em;
-    text-transform:uppercase;
+    font-family:var(--serif);
+    font-variant:small-caps;
+    font-size:.85rem;
+    letter-spacing:.02em;
     color:var(--ink-soft);
     cursor:pointer;
     transition:color .2s ease, border-color .2s ease;
   }
   .print-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
-  .print-btn:hover{color:var(--accent);border-color:var(--accent);}
+  .print-btn:hover{color:var(--cloth);border-color:var(--cloth);}
 
   .intro{
-    max-width:64ch;
+    max-width:68ch;
     color:var(--ink-soft);
     margin:26px 0 0;
-    font-size:1.06rem;
+    font-size:1.08rem;
   }
 
-  /* ---- Tabs ---- */
+  /* ---- Tabs, re-cut as book thumb-index tabs: the active one bridges
+     into the page below (same fill, its own bottom edge erased) the way
+     a dictionary's edge-tab sits flush with the section it opens. Short,
+     boxed labels never produce the lone-orphaned-row a full-width
+     underline tab did. ---- */
   .tabbar{
     display:flex;
     flex-wrap:wrap;
-    gap:28px;
+    align-items:flex-end;
+    gap:3px;
     margin-top:44px;
-    border-top:1px solid var(--line);
-    padding-top:26px;
+    border-bottom:1px solid var(--rule);
     position:sticky;
     top:0;
     z-index:40;
-    background:var(--paper);
+    background:var(--page);
     transition:box-shadow .25s ease, padding-top .25s ease;
   }
   .tabbar.stuck{
-    box-shadow:0 10px 18px -14px rgba(20,31,42,.45);
+    box-shadow:0 10px 18px -14px rgba(27,22,19,.35);
   }
   @media (max-width:600px){
-    /* Once stuck, the tabs would otherwise sit directly under the
-       fixed language/text-size pill — push them below it. */
-    .tabbar.stuck{padding-top:56px;}
+    .tabbar.stuck{padding-top:44px;}
   }
   .tabbar button{
     appearance:none;
-    border:none;
-    background:none;
+    background:var(--page-deep);
+    border:1px solid var(--rule);
+    border-bottom:none;
     text-align:left;
-    font-family:var(--mono);
-    font-size:.74rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
+    font-family:var(--serif);
+    font-variant:small-caps;
+    font-size:.92rem;
+    letter-spacing:.01em;
     color:var(--ink-soft);
-    padding:0 0 14px;
+    padding:9px 16px;
+    margin-bottom:-1px;
     cursor:pointer;
     position:relative;
   }
-  .tabbar button::before{
-    content:"§ ";
-    color:var(--accent);
-  }
   .tabbar button:hover{color:var(--ink);}
-  .tabbar button[aria-selected="true"]{color:var(--ink);}
-  .tabbar button[aria-selected="true"]::after{
-    content:"";
-    position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);
+  .tabbar button[aria-selected="true"]{
+    background:var(--page);
+    color:var(--cloth);
+    font-weight:600;
+    border-bottom:1px solid var(--page);
+    z-index:1;
   }
   @media (max-width:600px){
-    .tabbar{gap:18px;padding-top:20px;margin-top:34px;}
+    .tabbar{gap:2px;margin-top:34px;}
+    .tabbar button{padding:8px 12px;font-size:.85rem;}
   }
 
   .tabpanel{
@@ -325,16 +328,24 @@
     from{opacity:0;transform:translateY(8px);}
     to{opacity:1;transform:none;}
   }
-
-  .sub-label{
-    font-family:var(--mono);
-    font-size:.68rem;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    font-weight:400;
-    margin:36px 0 20px;
+  @media (prefers-reduced-motion:reduce){
+    .tabpanel.active{animation:none;}
   }
+
+  /* Section heads: a real heading set in small caps, its own first
+     letter rubricated to echo the cover mark — not a kicker floating
+     above a separate title. */
+  .sub-label{
+    font-family:var(--serif);
+    font-variant:small-caps;
+    font-weight:600;
+    font-size:1.15rem;
+    color:var(--ink);
+    padding-bottom:8px;
+    border-bottom:1px solid var(--rule);
+    margin:40px 0 22px;
+  }
+  .sub-label::first-letter{color:var(--cloth);font-weight:700;}
   .sub-label:first-child{margin-top:0;}
 
   .entry{
@@ -344,42 +355,44 @@
     gap:4px 28px;
     padding-bottom:28px;
     margin-bottom:28px;
-    border-bottom:1px solid var(--line);
+    border-bottom:1px solid var(--rule);
   }
   .entry:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+  /* On hover, a manicule — the real marginal "note this" mark of old
+     print — appears in the gutter, in place of a coloured accent bar. */
   .entry::before{
-    content:"";
+    content:"☞";
     position:absolute;
-    left:-14px;
-    top:0;
-    bottom:0;
-    width:3px;
-    background:var(--accent);
+    left:-30px;
+    top:1px;
+    color:var(--cloth);
+    font-size:1.15rem;
     opacity:0;
     transition:opacity .2s ease;
   }
   .entry:hover::before{opacity:1;}
   @media (max-width:600px){
-    .entry::before{left:-10px;}
+    .entry::before{display:none;}
   }
 
   .entry h3{
     font-family:var(--serif);
-    font-size:1.28rem;
-    font-weight:700;
+    font-size:1.32rem;
+    font-weight:600;
     margin:0;
     line-height:1.3;
   }
   .entry .place{
-    color:var(--accent);
-    font-size:.95rem;
+    color:var(--cloth);
+    font-style:italic;
+    font-size:.96rem;
     margin:4px 0 0;
   }
   .entry .date{
-    font-family:var(--mono);
+    font-family:var(--serif);
+    font-variant:small-caps;
     color:var(--ink-soft);
-    font-size:.82rem;
-    font-variant-numeric:tabular-nums;
+    font-size:.9rem;
     white-space:nowrap;
     text-align:right;
     padding-top:5px;
@@ -395,47 +408,48 @@
     position:relative;
     padding-left:20px;
     margin-bottom:8px;
-    font-size:.97rem;
+    font-size:.98rem;
   }
   .entry li::before{
-    content:"";
+    content:"—";
     position:absolute;
     left:0;
-    top:.7em;
-    width:8px;
-    height:1px;
-    background:var(--accent);
+    color:var(--cloth);
   }
   .entry .detail{
     grid-column:1 / -1;
     margin:10px 0 0;
     color:var(--ink-soft);
-    font-size:.97rem;
+    font-size:.98rem;
   }
   .entry .detail em{color:var(--ink);font-style:italic;}
 
+  /* An aside set off the way a block quotation is in a printed critical
+     edition: rules above and below, not a coloured side border. */
   .entry .workblurb{
     grid-column:1 / -1;
-    margin:12px 0 0;
-    padding-left:14px;
-    border-left:2px solid var(--accent);
+    margin:14px 0 0;
+    padding:10px 0;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
     color:var(--ink-soft);
     font-style:italic;
-    font-size:.9rem;
+    font-size:.93rem;
   }
   .entry .abstract{
     grid-column:1 / -1;
     margin:10px 0 0;
     color:var(--ink-soft);
-    font-size:.94rem;
+    font-size:.95rem;
   }
 
-  /* ---- Publications & conference talks ---- */
+  /* ---- Publications & conference talks: set as a bibliography, not a
+     card list — italic title, small-caps venue, hanging register. ---- */
   .pub-list{list-style:none;margin:0;padding:0;}
   .pub-list li{
     padding-bottom:20px;
     margin-bottom:20px;
-    border-bottom:1px solid var(--line);
+    border-bottom:1px solid var(--rule);
   }
   .pub-list li:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none;}
   .pub-title{
@@ -443,25 +457,24 @@
     font-family:var(--serif);
     font-style:italic;
     font-weight:600;
-    font-size:1.02rem;
+    font-size:1.06rem;
     color:var(--ink);
   }
   .pub-meta{
     display:block;
-    font-family:var(--mono);
-    font-size:.68rem;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin-top:5px;
+    font-family:var(--serif);
+    font-variant:small-caps;
+    font-size:.88rem;
+    color:var(--cloth);
+    margin-top:4px;
   }
   .pub-desc{
     margin:8px 0 0;
     color:var(--ink-soft);
-    font-size:.92rem;
+    font-size:.93rem;
   }
 
-  /* ---- Campus photo (Education tab) ---- */
+  /* ---- Campus photo (Education tab), captioned as a numbered plate ---- */
   .campus-photo{margin:0 0 36px;}
   .campus-photo img{
     width:100%;
@@ -469,14 +482,13 @@
     aspect-ratio:3 / 2;
     object-fit:cover;
     display:block;
-    border:6px solid var(--card);
-    box-shadow:0 10px 22px -8px rgba(20,31,42,.35);
+    border:1px solid var(--rule);
+    filter:sepia(.1) saturate(1.08) contrast(1.05) brightness(.99);
   }
   .campus-photo figcaption{
-    font-family:var(--mono);
-    font-size:.66rem;
-    letter-spacing:.04em;
-    text-transform:uppercase;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:.85rem;
     color:var(--ink-soft);
     margin-top:9px;
     text-align:right;
@@ -507,23 +519,24 @@
   .entry.has-photo .entry-head h3{margin:0;}
   .entry.has-photo .entry-head .date{margin:0;padding-top:0;}
   .entry.has-photo .place{margin-top:4px;}
-  /* .workblurb carries its own border-left/padding — a plain block box
-     like that doesn't narrow around a float the way wrapped text does
-     (only the text lines do), so left unguarded its left border cuts
-     straight across the photo instead of starting beside it. Giving it
-     its own block formatting context makes it dodge the float properly. */
+  /* .workblurb carries its own top/bottom rules — a plain block box like
+     that doesn't narrow around a float the way wrapped text does (only
+     the text lines do), so left unguarded its rules would run straight
+     across the photo instead of starting beside it. Giving it its own
+     block formatting context makes it dodge the float properly. */
   .entry.has-photo .workblurb{margin-top:14px;display:flow-root;}
   .entry.has-photo ul{margin-top:18px;display:flow-root;}
   @media (max-width:600px){
     .entry.has-photo .fest-photo-wrap{float:none;width:100%;max-width:220px;aspect-ratio:4/5;margin:0 0 20px;}
   }
 
-  /* ---- Festival / photo cards ----
+  /* ---- Festival / photo entries ----
      Same reasoning as the has-photo entry above: the photo floats left,
      the title/date line and place/description text wrap beside it while
      short and widen to the full column once they run past the photo's
      bottom edge, so no blank strip is ever left dangling next to a long
-     description. ---- */
+     description. Framed as a numbered plate, the way a printed book
+     captions its figures, rather than a tilted "pinned photo" card. ---- */
   .fest-entry{
     display:flow-root;
   }
@@ -535,21 +548,17 @@
     cursor:zoom-in;
     overflow:hidden;
   }
-  .fest-entry:nth-child(2) .fest-photo-wrap{--tilt:1.1deg;}
-  .fest-entry:nth-child(3) .fest-photo-wrap{--tilt:-0.7deg;}
-  .fest-entry:nth-child(4) .fest-photo-wrap{--tilt:0.8deg;}
   .fest-photo-wrap img{
     width:100%;
     height:100%;
     object-fit:cover;
     display:block;
-    border:6px solid var(--card);
-    box-shadow:0 10px 22px -8px rgba(20,31,42,.35);
-    transform:rotate(var(--tilt,-1.1deg));
-    transition:transform .3s ease, box-shadow .3s ease;
+    border:1px solid var(--rule);
+    filter:sepia(.1) saturate(1.08) contrast(1.05) brightness(.99);
+    transition:filter .3s ease;
   }
-  .fest-photo-wrap:hover img{transform:rotate(0deg) scale(1.03);box-shadow:0 14px 28px -8px rgba(20,31,42,.42);}
-  .fest-photo-wrap img:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+  .fest-photo-wrap:hover img{filter:sepia(0) saturate(1.05) contrast(1.03) brightness(1.01);}
+  .fest-photo-wrap img:focus-visible{outline:2px solid var(--cloth);outline-offset:3px;}
   .fest-entry .fest-head{
     display:flex;
     justify-content:space-between;
@@ -557,14 +566,13 @@
     gap:16px;
     flex-wrap:wrap;
   }
-  .fest-entry .fest-title{font-family:var(--serif);font-size:1.28rem;font-weight:700;margin:0;line-height:1.3;}
+  .fest-entry .fest-title{font-family:var(--serif);font-size:1.32rem;font-weight:600;margin:0;line-height:1.3;}
   .fest-entry .date{margin:0;}
   .fest-entry .place{
-    font-family:var(--mono);
-    font-size:.66rem;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:.9rem;
+    color:var(--cloth);
     margin:10px 0 0;
   }
   .fest-entry .detail{margin-top:8px;}
@@ -574,21 +582,11 @@
     .fest-entry .date{text-align:left;margin-top:2px;}
   }
 
-  /* ---- Unified photo colour grading: one warm, slightly muted grade
-     across the profile, lecture, campus and festival photos so they
-     read as one deliberate series despite different sources ---- */
-  .plate img,
-  .campus-photo img,
-  .fest-photo-wrap img,
-  .lightbox img{
-    filter:sepia(.12) saturate(1.15) contrast(1.05) brightness(.99);
-  }
-
   /* ---- Lightbox ---- */
   .lightbox{
     position:fixed;
     inset:0;
-    background:rgba(17,32,43,.9);
+    background:rgba(27,22,19,.92);
     display:none;
     align-items:center;
     justify-content:center;
@@ -601,66 +599,71 @@
     max-width:92vw;
     max-height:88vh;
     box-shadow:0 24px 70px rgba(0,0,0,.5);
+    filter:sepia(.1) saturate(1.08) contrast(1.05) brightness(.99);
   }
 
-  /* ---- Skills / interests spec grid ---- */
+  /* ---- Skills / interests: a running glossary, not a grid of icon
+     cards — one flowing list, a small mark standing in for the icon,
+     the term in small caps the way a dictionary sets its headwords. ---- */
   .spec-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:22px 28px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
     margin:0;
     padding:0;
     list-style:none;
   }
   .spec-item{
     display:flex;
-    gap:13px;
-    align-items:flex-start;
+    gap:14px;
+    align-items:baseline;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--rule);
   }
+  .spec-item:last-child{border-bottom:none;padding-bottom:0;}
   .spec-item svg{
     flex-shrink:0;
-    width:22px;
-    height:22px;
-    margin-top:1px;
-    stroke:var(--accent);
+    width:17px;
+    height:17px;
+    margin-top:.15em;
+    stroke:var(--cloth);
     fill:none;
-    stroke-width:1.6;
+    stroke-width:1.5;
     stroke-linecap:round;
     stroke-linejoin:round;
   }
-  .spec-grid.interests svg{stroke:var(--accent2);}
-  .spec-item h4{
+  .spec-item h3{
     font-family:var(--serif);
+    font-variant:small-caps;
     font-weight:600;
-    font-size:.98rem;
+    font-size:1.02rem;
     margin:0;
     line-height:1.3;
+    display:inline;
   }
   .spec-item p{
-    margin:5px 0 0;
+    display:inline;
+    margin:0;
     color:var(--ink-soft);
-    font-size:.87rem;
+    font-size:.95rem;
     line-height:1.5;
   }
-  @media (max-width:600px){
-    .spec-grid{grid-template-columns:1fr;}
-  }
+  .spec-item h3::after{content:" — ";color:var(--ink-soft);font-variant:normal;}
 
-  /* ---- Languages ---- */
+  /* ---- Languages: the level is stated, not gauged — no progress bar
+     standing in for the actual words. ---- */
   .langs{margin:0;padding:0;list-style:none;}
   .lang{
-    display:grid;
-    grid-template-columns:120px 1fr auto;
-    align-items:center;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
     gap:18px;
-    padding:14px 0;
-    border-bottom:1px solid var(--line);
+    padding:13px 0;
+    border-bottom:1px solid var(--rule);
   }
   .lang:last-child{border-bottom:none;}
-  .lang .lname{font-weight:700;font-size:1rem;}
-  .lang .level{font-family:var(--mono);color:var(--ink-soft);font-size:.82rem;white-space:nowrap;}
-  .track{height:2px;background:var(--line);position:relative;}
-  .track i{position:absolute;left:0;top:0;height:100%;background:var(--accent);}
+  .lang .lname{font-weight:600;font-size:1.02rem;}
+  .lang .level{font-family:var(--serif);font-style:italic;color:var(--ink-soft);font-size:.92rem;white-space:nowrap;}
 
   /* ---- Back to top ---- */
   .back-to-top{
@@ -670,16 +673,16 @@
     z-index:60;
     width:40px;
     height:40px;
-    border-radius:50%;
+    border-radius:2px;
     appearance:none;
     border:none;
-    background:var(--band);
-    color:var(--band-ink);
+    background:var(--cloth);
+    color:var(--page);
     cursor:pointer;
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow:0 6px 16px -6px rgba(20,31,42,.5);
+    box-shadow:0 6px 16px -6px rgba(27,22,19,.5);
     opacity:0;
     transform:translateY(10px);
     pointer-events:none;
@@ -690,9 +693,9 @@
     transform:none;
     pointer-events:auto;
   }
-  .back-to-top:hover{background:var(--accent);}
+  .back-to-top:hover{background:var(--cloth-deep);}
   .back-to-top svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-  .back-to-top:focus-visible{outline:2px solid var(--beam);outline-offset:2px;}
+  .back-to-top:focus-visible{outline:2px solid var(--gilt);outline-offset:2px;}
   @media (max-width:600px){
     .back-to-top{right:14px;bottom:16px;}
   }
@@ -703,12 +706,11 @@
   /* ---- Footer ---- */
   footer{
     margin-top:56px;
-    border-top:1px solid var(--line);
+    border-top:1px solid var(--rule);
     padding-top:26px;
-    font-family:var(--mono);
-    font-size:.7rem;
-    letter-spacing:.05em;
-    text-transform:uppercase;
+    font-family:var(--serif);
+    font-variant:small-caps;
+    font-size:.88rem;
     color:var(--ink-soft);
   }
 
@@ -720,20 +722,35 @@
     .band-text{text-align:center;}
     .entry{grid-template-columns:1fr;}
     .entry .date{text-align:left;padding-top:2px;margin-bottom:8px;}
-    .lang{grid-template-columns:96px 1fr;}
-    .lang .level{grid-column:1 / -1;}
-    .lang .track{grid-column:1 / -1;}
   }
 
   @media (prefers-reduced-motion:no-preference){
     .reveal{opacity:0;transform:translateY(12px);animation:rise .7s ease forwards;}
     @keyframes rise{to{opacity:1;transform:none;}}
+    /* The one signature moment: the cover's gilt initial settles into
+       place, like a stamp meeting cloth, instead of a scattered set of
+       hover flourishes across the page. */
+    .name{animation:stampIn .5s cubic-bezier(.16,1,.3,1) both;}
+    @keyframes stampIn{from{opacity:0;transform:scale(.97);}to{opacity:1;transform:none;}}
   }
 
   .tabbar button:focus-visible,
   .langbar button:focus-visible{
-    outline:2px solid var(--beam);
+    outline:2px solid var(--gilt);
     outline-offset:2px;
+  }
+
+  /* Each tabpanel's own (visually hidden) heading — restores the h1→h2→h3
+     nesting the tab buttons alone can't provide, without changing how
+     anything looks. */
+  .sr-only{
+    position:absolute;
+    width:1px;height:1px;
+    padding:0;margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
   }
 
   /* ---- Print: condensed 1-2 page summary ---- */
@@ -747,13 +764,12 @@
     /* Compact header — no photo, no coordinate line */
     .band{
       background:none !important;
-      animation:none !important;
       color:var(--ink);
       padding:0 0 10px;
     }
     .plate{display:none;}
     .topline{display:none;}
-    .name{font-size:1.65rem;color:var(--ink) !important;}
+    .name{font-size:1.65rem;color:var(--ink) !important;text-shadow:none !important;animation:none !important;}
     .role{font-size:.92rem;margin-top:4px;color:var(--ink) !important;}
 
     .lede{padding-top:6px;}
@@ -761,7 +777,7 @@
     .intro{font-size:.8rem;margin-top:8px;max-width:none;}
 
     .tabpanel{display:block !important;animation:none !important;opacity:1 !important;transform:none !important;padding-top:8px;}
-    .tabpanel + .tabpanel{margin-top:8px;border-top:1px solid var(--line);padding-top:8px;}
+    .tabpanel + .tabpanel{margin-top:8px;border-top:1px solid var(--rule);padding-top:8px;}
 
     /* Only Experience, Education, Skills & Languages make the cut —
        Festivals & Volunteering is the kind of thing worth a website,
@@ -773,8 +789,9 @@
        the site */
     .fest-photo-wrap,.campus-photo,.workblurb,.abstract{display:none !important;}
     .entry.has-photo{padding-left:0;}
+    .entry::before{display:none !important;}
 
-    .sub-label{font-size:.6rem;margin:10px 0 6px;}
+    .sub-label{font-size:.72rem;margin:10px 0 6px;padding-bottom:2px;}
 
     .entry{break-inside:avoid;padding-bottom:8px;margin-bottom:8px;font-size:.8rem;}
     .entry h3{font-size:.92rem;}
@@ -791,9 +808,10 @@
 
     /* Skills — titles only, two columns */
     .spec-grid.skills{display:block;columns:2;column-gap:20px;}
-    .spec-grid.skills .spec-item{display:block;margin-bottom:2px;break-inside:avoid;}
+    .spec-grid.skills .spec-item{display:block;margin-bottom:2px;padding-bottom:0;border-bottom:none;break-inside:avoid;}
     .spec-grid.skills svg,.spec-grid.skills p{display:none;}
-    .spec-item h4{font-size:.78rem;}
+    .spec-item h3{font-size:.78rem;}
+    .spec-item h3::after{content:"";}
 
     /* Interests are personality, not qualifications — off the summary */
     #sub-interests,.spec-grid.interests{display:none !important;}
@@ -804,12 +822,13 @@
       display:block;
       margin-top:14px;
       padding-top:8px;
-      border-top:1px solid var(--line);
-      font-family:var(--mono);
-      font-size:.66rem;
+      border-top:1px solid var(--rule);
+      font-family:var(--serif);
+      font-style:italic;
+      font-size:.72rem;
       color:var(--ink-soft);
     }
-    footer{margin-top:12px;padding-top:8px;font-size:.6rem;}
+    footer{margin-top:12px;padding-top:8px;font-size:.78rem;}
 
     a{color:var(--ink);text-decoration:underline;}
   }
@@ -871,6 +890,7 @@
   </nav>
 
   <div class="tabpanel active" id="panel-experience" role="tabpanel">
+      <h2 class="sr-only" id="heading-experience"></h2>
       <article class="entry has-photo">
         <div class="fest-photo-wrap"><img id="exp1-img" src="assets/lecture.jpg" width="675" height="800" loading="lazy" decoding="async" alt="" tabindex="0" role="button"></div>
         <div class="entry-body">
@@ -905,6 +925,7 @@
       <h3 class="sub-label" id="sub-talks"></h3>
       <ul class="pub-list" id="talks-list"></ul></div>
   <div class="tabpanel" id="panel-education" role="tabpanel">
+      <h2 class="sr-only" id="heading-education"></h2>
       <figure class="campus-photo">
         <img id="campus-img" src="assets/narfu-campus.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="">
         <figcaption id="campus-caption"></figcaption>
@@ -938,6 +959,7 @@
         <ul style="margin-top:0;" id="training-list"></ul>
       </article></div>
   <div class="tabpanel" id="panel-skillslang" role="tabpanel">
+      <h2 class="sr-only" id="heading-skillslang"></h2>
       <h3 class="sub-label" id="sub-skills"></h3>
       <ul class="spec-grid skills" id="skills-list"></ul>
 
@@ -945,17 +967,14 @@
       <ul class="langs" id="langs-list">
         <li class="lang">
           <span class="lname"></span>
-          <span class="track"><i style="width:90%"></i></span>
           <span class="level"></span>
         </li>
         <li class="lang">
           <span class="lname"></span>
-          <span class="track"><i style="width:100%"></i></span>
           <span class="level"></span>
         </li>
         <li class="lang">
           <span class="lname"></span>
-          <span class="track"><i style="width:55%"></i></span>
           <span class="level"></span>
         </li>
       </ul>
@@ -963,6 +982,7 @@
       <h3 class="sub-label" id="sub-interests"></h3>
       <ul class="spec-grid interests" id="interests-list"></ul></div>
   <div class="tabpanel" id="panel-festivals" role="tabpanel">
+      <h2 class="sr-only" id="heading-festivals"></h2>
       <article class="entry fest-entry">
         <div class="fest-photo-wrap"><img id="festA-img" src="assets/lighthouse.jpg" width="800" height="1066" loading="lazy" decoding="async" alt="" tabindex="0" role="button"></div>
         <div class="fest-head">
@@ -994,7 +1014,7 @@
       </article>
 
       <article class="entry fest-entry">
-        <div class="fest-photo-wrap"><img id="festD-img" src="assets/theatre-exhibition.jpg" loading="lazy" decoding="async" alt="" tabindex="0" role="button"></div>
+        <div class="fest-photo-wrap"><img id="festD-img" src="assets/theatre-exhibition.jpg" width="1024" height="576" loading="lazy" decoding="async" alt="" tabindex="0" role="button"></div>
         <div class="fest-head">
           <h3 class="fest-title" id="festD-title"></h3>
           <p class="date" id="festD-date"></p>
@@ -1577,6 +1597,10 @@ function applyLang(lang){
   document.getElementById('tab-education').innerHTML = t.labels.education;
   document.getElementById('tab-skillslang').innerHTML = t.labels.skillslang;
   document.getElementById('tab-festivals').innerHTML = t.labels.festivals;
+  document.getElementById('heading-experience').innerHTML = t.labels.experience;
+  document.getElementById('heading-education').innerHTML = t.labels.education;
+  document.getElementById('heading-skillslang').innerHTML = t.labels.skillslang;
+  document.getElementById('heading-festivals').innerHTML = t.labels.festivals;
 
   document.getElementById('sub-activity').innerHTML = t.labels.activity;
   document.getElementById('sub-publications').innerHTML = t.labels.publications;
@@ -1686,7 +1710,7 @@ function fillSpecs(id, items){
     li.className = 'spec-item';
     li.innerHTML =
       '<svg viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[item.icon] || '') + '</svg>' +
-      '<div><h4>' + item.title + '</h4><p>' + item.desc + '</p></div>';
+      '<div><h3>' + item.title + '</h3><p>' + item.desc + '</p></div>';
     ul.appendChild(li);
   });
 }
