@@ -167,7 +167,7 @@
   }
 
   /* The portrait as a frontispiece plate facing the title, not a hero shot */
-  .plate{margin:0;flex-shrink:0;text-align:center;}
+  .plate{margin:0;flex-shrink:0;text-align:center;position:relative;}
   .plate img{
     width:150px;
     height:190px;
@@ -176,6 +176,26 @@
     display:block;
     border:1px solid rgba(241,239,232,.5);
     filter:sepia(.1) saturate(1.08) contrast(1.05) brightness(.99);
+  }
+  /* A small ex-libris stamp on the frontispiece — this is, after all,
+     his own copy of his own life. */
+  .exlibris{
+    position:absolute;
+    right:5px;
+    bottom:5px;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    border:1px solid var(--gilt);
+    background:rgba(27,22,19,.6);
+    color:var(--gilt);
+    font-family:var(--serif);
+    font-variant:small-caps;
+    font-size:.6rem;
+    letter-spacing:.03em;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
   .plate figcaption{
     font-family:var(--serif);
@@ -214,6 +234,18 @@
   .name::first-letter{
     font-size:1.3em;
     font-weight:700;
+  }
+
+  /* A parallel-text title page: the same name in the other two
+     scripts, the way a bilingual critical edition states its title
+     twice — a small, quiet fact rather than a design flourish. */
+  .name-alt{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:.82rem;
+    letter-spacing:.02em;
+    color:rgba(241,239,232,.56);
+    margin:7px 0 0;
   }
 
   .role{
@@ -274,11 +306,15 @@
     align-items:flex-end;
     gap:3px;
     margin-top:44px;
-    border-bottom:1px solid var(--rule);
+    padding-bottom:5px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='6' viewBox='0 0 48 6'%3E%3Cpath d='M0 3 Q12 0 24 3 T48 3' fill='none' stroke='%23D6D0C1' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-position:bottom;
+    background-size:48px 6px;
     position:sticky;
     top:0;
     z-index:40;
-    background:var(--page);
+    background-color:var(--page);
     transition:box-shadow .25s ease, padding-top .25s ease;
   }
   .tabbar.stuck{
@@ -342,7 +378,13 @@
     font-size:1.15rem;
     color:var(--ink);
     padding-bottom:8px;
-    border-bottom:1px solid var(--rule);
+    /* A wavy rule rather than a straight one — the boundary-line
+       convention of a dialect map, standing in for a plain divider
+       at every section break on the page. */
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='6' viewBox='0 0 48 6'%3E%3Cpath d='M0 3 Q12 0 24 3 T48 3' fill='none' stroke='%23D6D0C1' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-position:bottom;
+    background-size:40px 5px;
     margin:40px 0 22px;
   }
   .sub-label::first-letter{color:var(--cloth);font-weight:700;}
@@ -375,12 +417,20 @@
     .entry::before{display:none;}
   }
 
-  .entry h3{
+  .entry h3,
+  .fest-entry .fest-title{
     font-family:var(--serif);
     font-size:1.32rem;
     font-weight:600;
     margin:0;
     line-height:1.3;
+  }
+  /* The masthead's rubrication mark, carried through to every entry
+     in the log — the same recurring device, not a one-off flourish. */
+  .entry h3::first-letter,
+  .fest-entry .fest-title::first-letter{
+    color:var(--cloth);
+    font-weight:700;
   }
   .entry .place{
     color:var(--cloth);
@@ -566,7 +616,6 @@
     gap:16px;
     flex-wrap:wrap;
   }
-  .fest-entry .fest-title{font-family:var(--serif);font-size:1.32rem;font-weight:600;margin:0;line-height:1.3;}
   .fest-entry .date{margin:0;}
   .fest-entry .place{
     font-family:var(--serif);
@@ -713,6 +762,17 @@
     font-size:.88rem;
     color:var(--ink-soft);
   }
+  /* A colophon, the way a printed book closes — what it's set in,
+     not just who made it. */
+  .colophon{
+    text-align:center;
+    font-style:italic;
+    font-variant:small-caps;
+    color:var(--cloth);
+    font-size:.85rem;
+    margin:0 0 16px;
+  }
+  .colophon::before{content:"❦";margin-right:.4em;}
 
   /* ---- Responsive ---- */
   @media (max-width:600px){
@@ -855,11 +915,13 @@
     <div class="band-main">
       <figure class="plate">
         <img class="photo" id="photo" src="assets/Byzov-S.S_.jpg" width="426" height="640" alt="" decoding="async" fetchpriority="high">
+        <span class="exlibris" aria-hidden="true">S·B</span>
         <figcaption id="plate-caption" aria-hidden="true"></figcaption>
       </figure>
       <div class="band-text">
         <p class="topline" id="topline">Belgrade, Serbia // 44.7866°N 20.4489°E</p>
         <h1 class="name" id="name">Savely Byzov</h1>
+        <p class="name-alt" id="name-alt" aria-hidden="true"></p>
         <p class="role" id="role">Linguist // EFL Teacher // Researcher</p>
       </div>
     </div>
@@ -1026,6 +1088,7 @@
   <p class="print-note" id="print-note"></p>
 
   <footer>
+    <p class="colophon" id="colophon"></p>
     <span id="footer-text"></span><a href="mailto:hello@saveliybyzov.ru">hello@saveliybyzov.ru</a>
   </footer>
 
@@ -1228,7 +1291,8 @@ const T = {
       { "icon": "travel", "title": "Travel", "desc": "I dream of Scandinavia and Alaska next — Serbia used to be the dream, before it became home." },
       { "icon": "woodwork", "title": "Woodworking &amp; carpentry", "desc": "In my spare time, I make shields and build greenhouses by hand." }
     ],
-    "footer": "Savely Byzov // Belgrade, Serbia // "
+    "footer": "Savely Byzov // Belgrade, Serbia // ",
+    "colophon": "Set in EB Garamond — Belgrade,"
   },
   "ru": {
     "topline": "Белград, Сербия // 44.7866°N 20.4489°E",
@@ -1402,7 +1466,8 @@ const T = {
       { "icon": "travel", "title": "Путешествия", "desc": "Мечтаю увидеть Скандинавию и Аляску — а Сербия была мечтой, пока не стала домом." },
       { "icon": "woodwork", "title": "Резьба по дереву и столярное дело", "desc": "В свободное время своими руками делаю щиты и строю теплицы." }
     ],
-    "footer": "Савелий Бызов // Белград, Сербия // "
+    "footer": "Савелий Бызов // Белград, Сербия // ",
+    "colophon": "Набрано EB Garamond — Белград,"
   },
   "sr": {
     "topline": "Beograd, Srbija // 44.7866°N 20.4489°E",
@@ -1576,7 +1641,8 @@ const T = {
       { "icon": "travel", "title": "Putovanja", "desc": "Sledeće sanjam o Skandinaviji i Aljasci — Srbija je bila san, sve dok nije postala dom." },
       { "icon": "woodwork", "title": "Rezbarenje i stolarstvo", "desc": "U slobodno vreme sopstvenim rukama pravim štitove i gradim staklenike." }
     ],
-    "footer": "Saveliy Byzov // Beograd, Srbija // "
+    "footer": "Saveliy Byzov // Beograd, Srbija // ",
+    "colophon": "Složeno u EB Garamond — Beograd,"
   }
 };
 
@@ -1587,6 +1653,10 @@ function applyLang(lang){
   document.getElementById('name').textContent = t.name;
   document.getElementById('role').textContent = t.role;
   document.getElementById('intro').textContent = t.intro;
+  document.getElementById('name-alt').textContent = ['en','ru','sr']
+    .filter(function(l){ return l !== lang; })
+    .map(function(l){ return T[l].name; })
+    .join(' · ');
   document.getElementById('photo').alt = t.photoAlt;
   document.getElementById('plate-caption').textContent = t.plateCaption;
   document.getElementById('print-label').textContent = t.printLabel;
@@ -1634,6 +1704,7 @@ function applyLang(lang){
   fillFest('festD', t.festD);
 
   document.getElementById('footer-text').textContent = t.footer;
+  document.getElementById('colophon').textContent = t.colophon + ' ' + new Date().getFullYear();
 
   document.querySelectorAll('.lang-group button').forEach(function(b){
     const isActive = b.dataset.lang === lang;
