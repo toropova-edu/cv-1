@@ -288,6 +288,13 @@
   .print-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
   .print-btn:hover{color:var(--cloth);border-color:var(--cloth);}
 
+  .intro-link{
+    color:var(--cloth);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:4px;
+  }
+  .intro-link::after{content:" ☞";}
   .intro{
     max-width:68ch;
     color:var(--ink-soft);
@@ -1045,7 +1052,7 @@
       <ul class="spec-grid interests" id="interests-list"></ul></div>
   <div class="tabpanel" id="panel-festivals" role="tabpanel">
       <h2 class="sr-only" id="heading-festivals"></h2>
-      <article class="entry fest-entry">
+      <article class="entry fest-entry" id="lighthouse">
         <div class="fest-photo-wrap"><img id="festA-img" src="assets/lighthouse.jpg" width="800" height="1066" loading="lazy" decoding="async" alt="" tabindex="0" role="button"></div>
         <div class="fest-head">
           <h3 class="fest-title" id="festA-title"></h3>
@@ -1291,6 +1298,7 @@ const T = {
       { "icon": "travel", "title": "Travel", "desc": "I dream of Scandinavia and Alaska next — Serbia used to be the dream, before it became home." },
       { "icon": "woodwork", "title": "Woodworking &amp; carpentry", "desc": "In my spare time, I make shields and build greenhouses by hand." }
     ],
+    "introLink": "restore a lighthouse at the edge of the world",
     "footer": "Savely Byzov // Belgrade, Serbia // ",
     "colophon": "Set in EB Garamond — Belgrade,"
   },
@@ -1466,6 +1474,7 @@ const T = {
       { "icon": "travel", "title": "Путешествия", "desc": "Мечтаю увидеть Скандинавию и Аляску — а Сербия была мечтой, пока не стала домом." },
       { "icon": "woodwork", "title": "Резьба по дереву и столярное дело", "desc": "В свободное время своими руками делаю щиты и строю теплицы." }
     ],
+    "introLink": "восстанавливая маяк на краю света",
     "footer": "Савелий Бызов // Белград, Сербия // ",
     "colophon": "Набрано EB Garamond — Белград,"
   },
@@ -1641,6 +1650,7 @@ const T = {
       { "icon": "travel", "title": "Putovanja", "desc": "Sledeće sanjam o Skandinaviji i Aljasci — Srbija je bila san, sve dok nije postala dom." },
       { "icon": "woodwork", "title": "Rezbarenje i stolarstvo", "desc": "U slobodno vreme sopstvenim rukama pravim štitove i gradim staklenike." }
     ],
+    "introLink": "restaurirao svetionik na kraju sveta",
     "footer": "Saveliy Byzov // Beograd, Srbija // ",
     "colophon": "Složeno u EB Garamond — Beograd,"
   }
@@ -1652,7 +1662,7 @@ function applyLang(lang){
   document.getElementById('topline').textContent = t.topline;
   document.getElementById('name').textContent = t.name;
   document.getElementById('role').textContent = t.role;
-  document.getElementById('intro').textContent = t.intro;
+  renderIntro(document.getElementById('intro'), t.intro, t.introLink);
   document.getElementById('name-alt').textContent = ['en','ru','sr']
     .filter(function(l){ return l !== lang; })
     .map(function(l){ return T[l].name; })
@@ -1713,6 +1723,21 @@ function applyLang(lang){
   });
 
   try { localStorage.setItem('sb-lang', lang); } catch(e){}
+}
+
+/* The intro's lighthouse phrase is a real link to the lighthouse entry —
+   the site's best story shouldn't sit four tabs deep with no way there. */
+function renderIntro(el, text, phrase){
+  el.textContent = '';
+  const i = text.indexOf(phrase);
+  if (i < 0){ el.textContent = text; return; }
+  el.appendChild(document.createTextNode(text.slice(0, i)));
+  const a = document.createElement('a');
+  a.href = '#lighthouse';
+  a.className = 'intro-link';
+  a.textContent = phrase;
+  el.appendChild(a);
+  el.appendChild(document.createTextNode(text.slice(i + phrase.length)));
 }
 
 function fillEntry(id, data){
@@ -1872,9 +1897,40 @@ function activateTab(id, focusButton){
   });
   tabPanels.forEach(function(p){ p.classList.toggle('active', p.id === 'panel-' + id); });
 }
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TAB_IDS = tabButtons.map(function(b){ return b.dataset.tab; });
+/* Switching tabs from far down the page would otherwise leave you in the
+   middle of the new section (or past its end): bring its start back
+   under the sticky tab bar instead. */
+function scrollToTabsTop(){
+  const bar = document.querySelector('.tabbar');
+  if (bar.getBoundingClientRect().top > 0) return; // not scrolled past the bar
+  const panel = document.querySelector('.tabpanel.active');
+  const panelTop = panel.getBoundingClientRect().top + window.scrollY;
+  window.scrollTo({ top: Math.max(0, panelTop - bar.offsetHeight), behavior: 'auto' });
+}
 tabButtons.forEach(function(btn){
-  btn.addEventListener('click', function(){ activateTab(btn.dataset.tab); });
+  btn.addEventListener('click', function(){
+    activateTab(btn.dataset.tab);
+    try { history.replaceState(null, '', '#' + btn.dataset.tab); } catch(e){}
+    scrollToTabsTop();
+  });
 });
+/* #festivals, #education … open that tab; #lighthouse opens Festivals and
+   scrolls to the lighthouse entry. Works on load, on back/forward, and
+   from the link in the intro. */
+function openFromHash(){
+  const id = decodeURIComponent(location.hash.replace('#', ''));
+  if (TAB_IDS.indexOf(id) >= 0){ activateTab(id); return; }
+  const target = id && document.getElementById(id);
+  if (target && target.closest('.tabpanel')){
+    activateTab(target.closest('.tabpanel').id.replace('panel-', ''));
+    /* keep the entry's heading clear of the sticky tab bar */
+    target.style.scrollMarginTop = (document.querySelector('.tabbar').offsetHeight + 16) + 'px';
+    target.scrollIntoView({ block: 'start', behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  }
+}
+window.addEventListener('hashchange', openFromHash);
 document.querySelector('.tabbar').addEventListener('keydown', function(e){
   const current = tabButtons.findIndex(function(b){ return b.getAttribute('aria-selected') === 'true'; });
   let next = null;
@@ -1892,7 +1948,6 @@ activateTab('experience');
 /* ---- Sticky tabbar shadow + back-to-top button ---- */
 const tabbarEl = document.querySelector('.tabbar');
 const backToTopBtn = document.getElementById('back-to-top');
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function onScroll(){
   tabbarEl.classList.toggle('stuck', tabbarEl.getBoundingClientRect().top <= 0);
   backToTopBtn.classList.toggle('visible', window.scrollY > 480);
@@ -1902,6 +1957,7 @@ onScroll();
 backToTopBtn.addEventListener('click', function(){
   window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
 });
+openFromHash();
 
 </script>
 </body>
