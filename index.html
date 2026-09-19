@@ -7,6 +7,7 @@
 <meta name="description" content="Savely Byzov — university lecturer and researcher in English language teaching, sociolinguistics, and the history of English. Belgrade, Serbia.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#6B2230">
+<meta name="color-scheme" content="light">
 <link rel="canonical" href="https://saveliybyzov.github.io/cv/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%236B2230'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='28' fill='%23AD8A47' text-anchor='middle'%3ESB%3C/text%3E%3C/svg%3E">
 
@@ -72,12 +73,26 @@
     --ink-soft:#5C5348;   /* muted ink for secondary text */
     --rule:#D6D0C1;       /* hairline rule colour */
     --serif:"EB Garamond","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    /* One motion vocabulary for the whole page: a strong ease-out for
+       everything that enters, responds or settles. */
+    --ease-out:cubic-bezier(.23,1,.32,1);
   }
 
   *{box-sizing:border-box;}
-  button{text-align:inherit;}
+  /* Controls are controls: no long-press text selection or callout, no
+     double-tap-zoom delay, no grey tap flash competing with the pressed
+     state. Content text stays selectable. */
+  button{
+    text-align:inherit;
+    touch-action:manipulation;
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-touch-callout:none;
+  }
+  a{touch-action:manipulation;}
   html{
     -webkit-text-size-adjust:100%;
+    -webkit-tap-highlight-color:transparent;
     font-size:18px;
   }
   html[data-fontsize="large"]{font-size:20px;}
@@ -96,7 +111,6 @@
   ::selection{background:#D9BFB0;}
 
   a{color:var(--cloth);text-decoration:none;}
-  a:hover{text-decoration:underline;text-underline-offset:3px;}
   a:focus-visible{outline:2px solid var(--cloth);outline-offset:3px;border-radius:2px;}
 
   .wrap{
@@ -115,6 +129,7 @@
     align-items:center;
     gap:2px;
     background:rgba(27,22,19,.88);
+    -webkit-backdrop-filter:blur(6px);
     backdrop-filter:blur(6px);
     border-radius:2px;
     padding:5px 6px;
@@ -134,8 +149,8 @@
     padding:5px 8px;
     cursor:pointer;
     position:relative;
+    transition:color .15s ease, transform 120ms var(--ease-out);
   }
-  .langbar button:hover{color:var(--page);}
   .langbar button.active{color:var(--gilt);}
   .langbar button.active::after{
     content:"";
@@ -280,13 +295,13 @@
     font-family:var(--serif);
     font-variant:small-caps;
     font-size:.85rem;
-    letter-spacing:.02em;
+    letter-spacing:.04em;
     color:var(--ink-soft);
     cursor:pointer;
-    transition:color .2s ease, border-color .2s ease;
+    position:relative;
+    transition:color .15s ease, border-color .15s ease, transform 120ms var(--ease-out);
   }
   .print-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
-  .print-btn:hover{color:var(--cloth);border-color:var(--cloth);}
 
   .intro-link{
     color:var(--cloth);
@@ -322,13 +337,20 @@
     top:0;
     z-index:40;
     background-color:var(--page);
-    transition:box-shadow .25s ease, padding-top .25s ease;
+    transition:box-shadow 200ms ease;
   }
   .tabbar.stuck{
     box-shadow:0 10px 18px -14px rgba(27,22,19,.35);
   }
+  /* On a phone the fixed language bar sits over the top 44px, so the
+     stuck tab bar parks below it. A page-coloured shadow strip fills the
+     gap above (paint only) — the bar's height never changes, so nothing
+     below it shifts when it sticks or unsticks. */
   @media (max-width:600px){
-    .tabbar.stuck{padding-top:44px;}
+    .tabbar{top:44px;}
+    .tabbar.stuck{
+      box-shadow:0 -44px 0 0 var(--page), 0 10px 18px -14px rgba(27,22,19,.35);
+    }
   }
   .tabbar button{
     appearance:none;
@@ -339,14 +361,14 @@
     font-family:var(--serif);
     font-variant:small-caps;
     font-size:.92rem;
-    letter-spacing:.01em;
+    letter-spacing:.03em;
     color:var(--ink-soft);
     padding:9px 16px;
     margin-bottom:-1px;
     cursor:pointer;
     position:relative;
+    transition:color .15s ease, background-color .15s ease, transform 120ms var(--ease-out);
   }
-  .tabbar button:hover{color:var(--ink);}
   .tabbar button[aria-selected="true"]{
     background:var(--page);
     color:var(--cloth);
@@ -363,16 +385,23 @@
     display:none;
     padding-top:34px;
   }
+  /* A tab click nudges the new section in from the side its tab sits on
+     (spatial consistency along the index); 180ms, ease-out. Keyboard,
+     hash and first-load switches carry no animation at all. */
   .tabpanel.active{
     display:block;
-    animation:panelIn .35s ease;
+    animation:panelIn 180ms var(--ease-out);
   }
+  .tabpanel.active.instant{animation:none;}
   @keyframes panelIn{
-    from{opacity:0;transform:translateY(8px);}
+    from{opacity:0;transform:translateX(var(--panel-from,0px));}
     to{opacity:1;transform:none;}
   }
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  /* Reduced motion keeps the fade (it aids comprehension), drops the shift. */
   @media (prefers-reduced-motion:reduce){
-    .tabpanel.active{animation:none;}
+    .tabpanel.active{animation:fadeIn 120ms ease;}
+    .tabpanel.active.instant{animation:none;}
   }
 
   /* Section heads: a real heading set in small caps, its own first
@@ -383,6 +412,7 @@
     font-variant:small-caps;
     font-weight:600;
     font-size:1.15rem;
+    letter-spacing:.03em;
     color:var(--ink);
     padding-bottom:8px;
     /* A wavy rule rather than a straight one — the boundary-line
@@ -417,9 +447,8 @@
     color:var(--cloth);
     font-size:1.15rem;
     opacity:0;
-    transition:opacity .2s ease;
+    transition:opacity 150ms ease;
   }
-  .entry:hover::before{opacity:1;}
   @media (max-width:600px){
     .entry::before{display:none;}
   }
@@ -613,8 +642,8 @@
     border:1px solid var(--rule);
     filter:sepia(.1) saturate(1.08) contrast(1.05) brightness(.99);
     transition:filter .3s ease;
+    -webkit-touch-callout:none; /* a tap opens the lightbox; no save-image callout on long-press */
   }
-  .fest-photo-wrap:hover img{filter:sepia(0) saturate(1.05) contrast(1.03) brightness(1.01);}
   .fest-photo-wrap img:focus-visible{outline:2px solid var(--cloth);outline-offset:3px;}
   .fest-entry .fest-head{
     display:flex;
@@ -639,23 +668,44 @@
   }
 
   /* ---- Lightbox ---- */
+  /* Opens with a quick fade and the photo settling from 97% — it would
+     otherwise teleport in; closes faster than it opens. visibility (not
+     display) keeps it out of the tab order and the a11y tree while shut. */
   .lightbox{
     position:fixed;
     inset:0;
     background:rgba(27,22,19,.92);
-    display:none;
+    display:flex;
     align-items:center;
     justify-content:center;
     padding:32px;
     z-index:200;
     cursor:zoom-out;
+    overscroll-behavior:contain;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 150ms var(--ease-out), visibility 0s linear 150ms;
   }
-  .lightbox.open{display:flex;}
+  .lightbox.open{
+    opacity:1;
+    visibility:visible;
+    transition:opacity 220ms var(--ease-out), visibility 0s;
+  }
   .lightbox img{
     max-width:92vw;
     max-height:88vh;
+    max-height:88dvh; /* the visible height, not the URL-bar-collapsed one */
     box-shadow:0 24px 70px rgba(0,0,0,.5);
     filter:sepia(.1) saturate(1.08) contrast(1.05) brightness(.99);
+    transform:scale(.97);
+    transition:transform 150ms var(--ease-out);
+  }
+  .lightbox.open img{
+    transform:none;
+    transition:transform 220ms var(--ease-out);
+  }
+  @media (prefers-reduced-motion:reduce){
+    .lightbox img,.lightbox.open img{transform:none;transition:none;}
   }
 
   /* ---- Skills / interests: a running glossary, not a grid of icon
@@ -693,6 +743,7 @@
     font-variant:small-caps;
     font-weight:600;
     font-size:1.02rem;
+    letter-spacing:.03em;
     margin:0;
     line-height:1.3;
     display:inline;
@@ -742,21 +793,22 @@
     opacity:0;
     transform:translateY(10px);
     pointer-events:none;
-    transition:opacity .25s ease, transform .25s ease, background-color .2s ease;
+    /* leaves faster (150ms) than it arrives (220ms, below) */
+    transition:opacity 150ms var(--ease-out), transform 150ms var(--ease-out), background-color .15s ease;
   }
   .back-to-top.visible{
     opacity:1;
     transform:none;
     pointer-events:auto;
+    transition:opacity 220ms var(--ease-out), transform 220ms var(--ease-out), background-color .15s ease;
   }
-  .back-to-top:hover{background:var(--cloth-deep);}
   .back-to-top svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
   .back-to-top:focus-visible{outline:2px solid var(--gilt);outline-offset:2px;}
   @media (max-width:600px){
     .back-to-top{right:14px;bottom:16px;}
   }
   @media (prefers-reduced-motion:reduce){
-    .back-to-top{transition:opacity .25s ease;}
+    .back-to-top,.back-to-top.visible{transform:none;transition:opacity 150ms ease;}
   }
 
   /* ---- Footer ---- */
@@ -767,6 +819,7 @@
     font-family:var(--serif);
     font-variant:small-caps;
     font-size:.88rem;
+    letter-spacing:.03em;
     color:var(--ink-soft);
   }
   /* A colophon, the way a printed book closes — what it's set in,
@@ -792,13 +845,55 @@
   }
 
   @media (prefers-reduced-motion:no-preference){
-    .reveal{opacity:0;transform:translateY(12px);animation:rise .7s ease forwards;}
+    .reveal{opacity:0;transform:translateY(8px);animation:rise .5s var(--ease-out) forwards;}
     @keyframes rise{to{opacity:1;transform:none;}}
     /* The one signature moment: the cover's gilt initial settles into
        place, like a stamp meeting cloth, instead of a scattered set of
        hover flourishes across the page. */
-    .name{animation:stampIn .5s cubic-bezier(.16,1,.3,1) both;}
+    .name{animation:stampIn .5s var(--ease-out) both;}
     @keyframes stampIn{from{opacity:0;transform:scale(.97);}to{opacity:1;transform:none;}}
+    /* Switching language replaces every word at once; a short fade from
+       35% bridges the swap without delaying it (it starts the instant
+       the text changes). */
+    .lang-swap{animation:langSwap 180ms var(--ease-out);}
+    @keyframes langSwap{from{opacity:.35;}to{opacity:1;}}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .lang-swap{animation:fadeIn 120ms ease;}
+  }
+
+  /* Pointer-only hover states: on touch a tap would otherwise leave them
+     stuck on. Touch users get the :active press below instead. */
+  @media (hover:hover) and (pointer:fine){
+    a:hover{text-decoration:underline;text-underline-offset:3px;}
+    .langbar button:not(.active):hover{color:var(--page);}
+    .tabbar button:not([aria-selected="true"]):hover{color:var(--ink);}
+    .print-btn:hover{color:var(--cloth);border-color:var(--cloth);}
+    .entry:hover::before{opacity:1;}
+    .fest-photo-wrap:hover img{filter:sepia(0) saturate(1.05) contrast(1.03) brightness(1.01);}
+    .back-to-top:hover{background:var(--cloth-deep);}
+  }
+
+  /* Press feedback on the instant of contact (all input types). */
+  .langbar button:active,
+  .tabbar button:active,
+  .print-btn:active,
+  .back-to-top.visible:active{transform:scale(.97);transition-duration:120ms;}
+
+  /* Fingers need more than the visual box: extend hit areas to ~44px
+     without changing how anything looks. */
+  @media (pointer:coarse){
+    .langbar button::before{content:"";position:absolute;inset:-8px -1px;}
+    .print-btn::before{content:"";position:absolute;inset:-7px -2px;}
+    .back-to-top::before{content:"";position:absolute;inset:-4px;}
+  }
+
+  /* System preferences the browser passes along. */
+  @media (prefers-reduced-transparency:reduce){
+    .langbar{background:var(--ink);-webkit-backdrop-filter:none;backdrop-filter:none;}
+  }
+  @media (prefers-contrast:more){
+    :root{--ink-soft:#3D362E;--rule:#A39A87;}
   }
 
   .tabbar button:focus-visible,
@@ -1820,7 +1915,21 @@ function fillFest(id, data){
 }
 
 document.querySelectorAll('.lang-group button').forEach(function(btn){
-  btn.addEventListener('click', function(){ applyLang(btn.dataset.lang); });
+  btn.addEventListener('click', function(){
+    if (btn.dataset.lang === document.documentElement.lang) return;
+    applyLang(btn.dataset.lang);
+    /* a quick fade from 35% over the swapped text (see .lang-swap) */
+    document.querySelectorAll('.band-inner, main.wrap').forEach(function(el){
+      el.classList.remove('lang-swap');
+      void el.offsetWidth; // restart the animation if switched twice quickly
+      el.classList.add('lang-swap');
+      el.addEventListener('animationend', function done(e){
+        if (e.target !== el) return;
+        el.classList.remove('lang-swap');
+        el.removeEventListener('animationend', done);
+      });
+    });
+  });
 });
 
 document.getElementById('print-btn').addEventListener('click', function(){ window.print(); });
@@ -1854,7 +1963,7 @@ try {
 applyFontSize(initialFontSize);
 
 document.querySelectorAll('.reveal').forEach(function(el, i){
-  el.style.animationDelay = (i * 0.1) + 's';
+  el.style.animationDelay = (i * 0.06) + 's';
 });
 
 const lightbox = document.getElementById('lightbox');
@@ -1888,30 +1997,43 @@ lightbox.addEventListener('keydown', function(e){
 /* ---- Exclusive tabs: opening one closes the others ---- */
 const tabButtons = Array.from(document.querySelectorAll('.tabbar button'));
 const tabPanels = document.querySelectorAll('.tabpanel');
-function activateTab(id, focusButton){
+/* animate=true only for a pointer click on a tab: the new section then
+   slides in a few px from the side its tab is on. Arrow keys, the hash
+   and first load switch instantly (repeated/keyboard actions don't animate). */
+function activateTab(id, focusButton, animate){
+  const prev = tabButtons.findIndex(function(b){ return b.getAttribute('aria-selected') === 'true'; });
+  const next = tabButtons.findIndex(function(b){ return b.dataset.tab === id; });
   tabButtons.forEach(function(b){
     const selected = b.dataset.tab === id;
     b.setAttribute('aria-selected', String(selected));
     b.setAttribute('tabindex', selected ? '0' : '-1');
     if (selected && focusButton) b.focus();
   });
-  tabPanels.forEach(function(p){ p.classList.toggle('active', p.id === 'panel-' + id); });
+  tabPanels.forEach(function(p){
+    const on = p.id === 'panel-' + id;
+    const wasOn = p.classList.contains('active');
+    p.classList.toggle('active', on);
+    p.classList.toggle('instant', !(animate && on && !wasOn));
+    if (on) p.style.setProperty('--panel-from', (next > prev ? 8 : -8) + 'px');
+  });
 }
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const TAB_IDS = tabButtons.map(function(b){ return b.dataset.tab; });
 /* Switching tabs from far down the page would otherwise leave you in the
    middle of the new section (or past its end): bring its start back
    under the sticky tab bar instead. */
+/* Where the sticky bar parks: 0 on desktop, below the language bar on a phone. */
+function stickyTop(){ return parseFloat(getComputedStyle(document.querySelector('.tabbar')).top) || 0; }
 function scrollToTabsTop(){
   const bar = document.querySelector('.tabbar');
-  if (bar.getBoundingClientRect().top > 0) return; // not scrolled past the bar
+  if (bar.getBoundingClientRect().top > stickyTop() + 0.5) return; // not scrolled past the bar
   const panel = document.querySelector('.tabpanel.active');
   const panelTop = panel.getBoundingClientRect().top + window.scrollY;
-  window.scrollTo({ top: Math.max(0, panelTop - bar.offsetHeight), behavior: 'auto' });
+  window.scrollTo({ top: Math.max(0, panelTop - bar.offsetHeight - stickyTop()), behavior: 'auto' });
 }
 tabButtons.forEach(function(btn){
   btn.addEventListener('click', function(){
-    activateTab(btn.dataset.tab);
+    activateTab(btn.dataset.tab, false, true);
     try { history.replaceState(null, '', '#' + btn.dataset.tab); } catch(e){}
     scrollToTabsTop();
   });
@@ -1926,7 +2048,7 @@ function openFromHash(){
   if (target && target.closest('.tabpanel')){
     activateTab(target.closest('.tabpanel').id.replace('panel-', ''));
     /* keep the entry's heading clear of the sticky tab bar */
-    target.style.scrollMarginTop = (document.querySelector('.tabbar').offsetHeight + 16) + 'px';
+    target.style.scrollMarginTop = (document.querySelector('.tabbar').offsetHeight + stickyTop() + 16) + 'px';
     target.scrollIntoView({ block: 'start', behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   }
 }
@@ -1949,7 +2071,7 @@ activateTab('experience');
 const tabbarEl = document.querySelector('.tabbar');
 const backToTopBtn = document.getElementById('back-to-top');
 function onScroll(){
-  tabbarEl.classList.toggle('stuck', tabbarEl.getBoundingClientRect().top <= 0);
+  tabbarEl.classList.toggle('stuck', tabbarEl.getBoundingClientRect().top <= stickyTop() + 0.5);
   backToTopBtn.classList.toggle('visible', window.scrollY > 480);
 }
 window.addEventListener('scroll', onScroll, { passive: true });
